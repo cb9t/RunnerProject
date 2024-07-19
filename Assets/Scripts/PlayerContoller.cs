@@ -9,11 +9,14 @@ using UnityEngine.InputSystem;
 public class PlayerContoller : MonoBehaviour
 {
     [SerializeField] WeaponsController _weapons;
+    [SerializeField] Animator _animator;
     [Header("Tracks")]
     [SerializeField] private float[] _tracksPosition = { };
+    [SerializeField] private Vector2 _hightPosition;
     [SerializeField] private float _lerpValue;
     
     private int _currentTrack;
+    private float _currentHight;
     private InputManager _inputManager;
 
     void Awake()
@@ -22,12 +25,15 @@ public class PlayerContoller : MonoBehaviour
 
         _inputManager.Player.MoveLeft.performed += MoveLeft;
         _inputManager.Player.MoveRight.performed += MoveRight;
+        _inputManager.Player.MoveUp.performed += MoveUp;
+        _inputManager.Player.MoveDown.performed += MoveDown;
         _inputManager.Player.AttackBullet.started += AttackBulletStart;
         _inputManager.Player.AttackBullet.canceled += AttackBulletEnd;
         _inputManager.Player.AttackRocket.performed += AttackRocket;
         _inputManager.Player.AttackBomb.performed += AttackBomb;
 
         _currentTrack = 1;
+        _currentHight = _hightPosition.x;
     }
     private void OnEnable()
     {
@@ -44,18 +50,35 @@ public class PlayerContoller : MonoBehaviour
     }
     private void UpdatePosition()
     {
-        var currenrPosition = transform.position.x;
-        var targetPosition = _tracksPosition[_currentTrack];
-        transform.position = new Vector3(Mathf.Lerp(currenrPosition, targetPosition, _lerpValue), transform.position.y, transform.position.z);
+        var currenrPositionX = transform.position.x;
+        var targetPositionX = _tracksPosition[_currentTrack];
+        var currenrPositionY = transform.position.y;
+        var targetPositionY = _currentHight;
+        transform.position = new Vector3
+            (Mathf.Lerp(currenrPositionX, targetPositionX, _lerpValue),
+            Mathf.Lerp(currenrPositionY, targetPositionY, _lerpValue),
+            transform.position.z);
     }
 
     private void MoveLeft(InputAction.CallbackContext context)
     {
         if (_currentTrack > 0) _currentTrack--;
+
+        _animator.Play("MoveLeft");
     }
     private void MoveRight(InputAction.CallbackContext context)
     {
         if (_currentTrack < 2) _currentTrack++;
+
+        _animator.Play("MoveRight");
+    }
+    private void MoveUp(InputAction.CallbackContext context)
+    {
+        if (transform.position.y != _hightPosition.x) _currentHight = _hightPosition.x;
+    }
+    private void MoveDown(InputAction.CallbackContext context)
+    {
+        if (transform.position.y != _hightPosition.y) _currentHight = _hightPosition.y;
     }
     public void AttackRocket(InputAction.CallbackContext context)
     {

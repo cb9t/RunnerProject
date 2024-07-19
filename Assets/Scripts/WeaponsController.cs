@@ -8,11 +8,12 @@ using UnityEngine.UIElements;
 public class WeaponsController : MonoBehaviour
 {
     [Header("Bullet Attacks")]
-    [SerializeField] GameObject _bullet;
+    [SerializeField] Rigidbody _bullet;
     [SerializeField] Transform _bulletSpawnPoint;
     [SerializeField] float _timePerShot;
 
     [SerializeField] private float _delayBulletDespawn;
+    [SerializeField] private float _bulletSpeed;
     private bool _isBulletShoot;
 
     [Space]
@@ -90,7 +91,8 @@ public class WeaponsController : MonoBehaviour
         while (_isBulletShoot)
         {
             var bullet = Instantiate(_bullet, _bulletSpawnPoint.position, Quaternion.identity);
-            Destroy(bullet, _delayBulletDespawn);
+            bullet.velocity = new Vector3(0f, 0f, _bulletSpeed);
+            Destroy(bullet.gameObject, _delayBulletDespawn);
             yield return new WaitForSeconds(_timePerShot);
         }
     }

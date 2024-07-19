@@ -23,9 +23,9 @@ public class WeaponsLogic : MonoBehaviour
         {
             case WeaponType.Rocket:
                 _rb.AddForce(Vector3.forward * _speed , ForceMode.Impulse);
-                if (this.transform.position.z > _maxDistance)
+                if (transform.position.z > _maxDistance)
                 {
-                    this.transform.position = _defaultPosition;
+                    transform.position = _defaultPosition;
                 }
 
                 break;
@@ -46,7 +46,6 @@ public class WeaponsLogic : MonoBehaviour
         _rb.isKinematic = false;
         _collider.enabled = true;
         transform.parent = null;
-        transform.position = _defaultPosition;
     }
 
 

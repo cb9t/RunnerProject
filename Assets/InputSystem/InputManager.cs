@@ -74,6 +74,24 @@ namespace CustomInput
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MoveUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""ae50b75e-1e6f-418b-9fbe-44c19b7e12b9"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MoveDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""8d9f4b88-469f-4414-bc80-76283207dedb"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -91,7 +109,7 @@ namespace CustomInput
                 {
                     ""name"": """",
                     ""id"": ""b58e5794-f5da-417e-afd1-417e303da7fe"",
-                    ""path"": ""<Keyboard>/w"",
+                    ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -102,7 +120,7 @@ namespace CustomInput
                 {
                     ""name"": """",
                     ""id"": ""8d75d06e-a5df-42eb-917a-854b0d62d772"",
-                    ""path"": ""<Keyboard>/s"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -129,6 +147,28 @@ namespace CustomInput
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
                     ""action"": ""MoveRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""085cf6ba-fd28-4876-802d-9d79d0be35a1"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard"",
+                    ""action"": ""MoveUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a173c412-a482-498b-88ed-85ed3e11c59f"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard"",
+                    ""action"": ""MoveDown"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -167,6 +207,8 @@ namespace CustomInput
             m_Player_AttackBomb = m_Player.FindAction("AttackBomb", throwIfNotFound: true);
             m_Player_MoveLeft = m_Player.FindAction("MoveLeft", throwIfNotFound: true);
             m_Player_MoveRight = m_Player.FindAction("MoveRight", throwIfNotFound: true);
+            m_Player_MoveUp = m_Player.FindAction("MoveUp", throwIfNotFound: true);
+            m_Player_MoveDown = m_Player.FindAction("MoveDown", throwIfNotFound: true);
         }
 
         ~@InputManager()
@@ -238,6 +280,8 @@ namespace CustomInput
         private readonly InputAction m_Player_AttackBomb;
         private readonly InputAction m_Player_MoveLeft;
         private readonly InputAction m_Player_MoveRight;
+        private readonly InputAction m_Player_MoveUp;
+        private readonly InputAction m_Player_MoveDown;
         public struct PlayerActions
         {
             private @InputManager m_Wrapper;
@@ -247,6 +291,8 @@ namespace CustomInput
             public InputAction @AttackBomb => m_Wrapper.m_Player_AttackBomb;
             public InputAction @MoveLeft => m_Wrapper.m_Player_MoveLeft;
             public InputAction @MoveRight => m_Wrapper.m_Player_MoveRight;
+            public InputAction @MoveUp => m_Wrapper.m_Player_MoveUp;
+            public InputAction @MoveDown => m_Wrapper.m_Player_MoveDown;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -271,6 +317,12 @@ namespace CustomInput
                 @MoveRight.started += instance.OnMoveRight;
                 @MoveRight.performed += instance.OnMoveRight;
                 @MoveRight.canceled += instance.OnMoveRight;
+                @MoveUp.started += instance.OnMoveUp;
+                @MoveUp.performed += instance.OnMoveUp;
+                @MoveUp.canceled += instance.OnMoveUp;
+                @MoveDown.started += instance.OnMoveDown;
+                @MoveDown.performed += instance.OnMoveDown;
+                @MoveDown.canceled += instance.OnMoveDown;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -290,6 +342,12 @@ namespace CustomInput
                 @MoveRight.started -= instance.OnMoveRight;
                 @MoveRight.performed -= instance.OnMoveRight;
                 @MoveRight.canceled -= instance.OnMoveRight;
+                @MoveUp.started -= instance.OnMoveUp;
+                @MoveUp.performed -= instance.OnMoveUp;
+                @MoveUp.canceled -= instance.OnMoveUp;
+                @MoveDown.started -= instance.OnMoveDown;
+                @MoveDown.performed -= instance.OnMoveDown;
+                @MoveDown.canceled -= instance.OnMoveDown;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -332,6 +390,8 @@ namespace CustomInput
             void OnAttackBomb(InputAction.CallbackContext context);
             void OnMoveLeft(InputAction.CallbackContext context);
             void OnMoveRight(InputAction.CallbackContext context);
+            void OnMoveUp(InputAction.CallbackContext context);
+            void OnMoveDown(InputAction.CallbackContext context);
         }
     }
 }

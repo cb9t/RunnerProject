@@ -7,8 +7,7 @@ public class MovementBase : MonoBehaviour
     [SerializeField] private float _startSpeed = 10f;
     [SerializeField] private Score _currentScore;
     [SerializeField] private bool _isCustom;
-    [SerializeField] private float _multiplierCustomScore;
-    [SerializeField] private bool _forwardDirection;
+    [SerializeField] private float _multiplierCustom;
     private float _moveSpeed;
     private Rigidbody _rb;
     
@@ -23,8 +22,7 @@ public class MovementBase : MonoBehaviour
     {
         
         var multiplierScore = _currentScore.score / 1000f;
-        if (_forwardDirection) _moveSpeed = _startSpeed * _multiplierCustomScore;
-        else if (_isCustom) _moveSpeed = -((_startSpeed + multiplierScore) * _multiplierCustomScore);
+        if (_isCustom) _moveSpeed = -((_startSpeed + multiplierScore) * _multiplierCustom);
         else _moveSpeed = -(_startSpeed + multiplierScore);
         
         _rb.velocity = new Vector3(0f,0f,_moveSpeed);
