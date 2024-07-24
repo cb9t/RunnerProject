@@ -511,7 +511,7 @@ MonoBehaviour:
   _startSpeed: 10
   _currentScore: {fileID: 0}
   _isCustom: 1
-  _multiplierCustom: 1.4
+  _multiplierCustom: 1.1
 --- !u!114 &8279052601135414931
 MonoBehaviour:
   m_ObjectHideFlags: 0

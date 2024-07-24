@@ -1050,7 +1050,7 @@ MonoBehaviour:
   - -5
   - 0
   - 5
-  _hightPosition: {x: 5, y: 1}
+  _hightPosition: 5
   _lerpValue: 0.01
 --- !u!114 &6624496715287516575
 MonoBehaviour:
