@@ -10,15 +10,19 @@ public class WeaponsController : MonoBehaviour
     [Header("Bullet Attacks")]
     [SerializeField] Rigidbody _bullet;
     [SerializeField] Transform _bulletSpawnPoint;
-    [SerializeField] float _timePerShot;
+    [SerializeField] private float _bulletBoostedSpawnPointRange;
+    [SerializeField] private float _timePerShot;
 
     [SerializeField] private float _delayBulletDespawn;
     [SerializeField] private float _bulletSpeed;
     private bool _isBulletShoot;
+    public bool isBulletBoost;
 
     [Space]
     [Header("Rokets/Bombs")]
     [SerializeField] private Transform _attachedTo;
+
+    [SerializeField] private WeaponsLogic _rocketPrefab;
 
     [SerializeField] private WeaponsLogic[] _rockets;
     [SerializeField] private WeaponsLogic[] _bombs;
@@ -31,7 +35,13 @@ public class WeaponsController : MonoBehaviour
 
     void Start()
     {
+        _rockets = new WeaponsLogic[_rocketsPosition.Length];
 
+        for (int i = 0; i < _rocketsPosition.Length; i ++)
+        {
+            _rockets[i] = Instantiate(_rocketPrefab);
+            _rockets[i].Attach(_attachedTo, _rocketsPosition[i]);
+        }
     }
 
     void FixedUpdate()
@@ -88,12 +98,39 @@ public class WeaponsController : MonoBehaviour
     }
     private IEnumerator AttackBullet()
     {
+        
         while (_isBulletShoot)
         {
-            var bullet = Instantiate(_bullet, _bulletSpawnPoint.position, Quaternion.identity);
-            bullet.velocity = new Vector3(0f, 0f, _bulletSpeed);
-            Destroy(bullet.gameObject, _delayBulletDespawn);
+            if (!isBulletBoost)
+            {
+                var bullet = Instantiate(_bullet, _bulletSpawnPoint.position, Quaternion.identity);
+                bullet.velocity = new Vector3(0f, 0f, _bulletSpeed);
+                Destroy(bullet.gameObject, _delayBulletDespawn);
+            }
+            else
+            {
+                var spawnPointX = _bulletSpawnPoint.position.x - _bulletBoostedSpawnPointRange;
+
+                for (int i = 0; i < 3; i++)
+                {
+                    var bulletSpawnPoint = new Vector3(spawnPointX, _bulletSpawnPoint.position.y, _bulletSpawnPoint.position.z);
+                    var bullet = Instantiate(_bullet, bulletSpawnPoint, Quaternion.identity);
+                    bullet.velocity = new Vector3(0f, 0f, _bulletSpeed);
+                    spawnPointX += _bulletBoostedSpawnPointRange;
+                    Destroy(bullet.gameObject, _delayBulletDespawn);
+                }
+            }
             yield return new WaitForSeconds(_timePerShot);
         }
+    }
+    public void BulletBoost(float boostTime)
+    {
+        StartCoroutine(CoroutineBulletBoost(boostTime));
+    }
+    private IEnumerator CoroutineBulletBoost(float boostTime)
+    {
+        isBulletBoost = true;
+        yield return new WaitForSeconds(boostTime);
+        isBulletBoost = false;
     }
 }

@@ -25,10 +25,11 @@ public class WeaponsLogic : MonoBehaviour
                 _rb.AddForce(Vector3.forward * _speed , ForceMode.Impulse);
                 if (transform.position.z > _maxDistance)
                 {
+                    _rb.velocity = Vector3.zero;
                     transform.position = _defaultPosition;
                 }
-
                 break;
+
             case WeaponType.Bomb:
                 _rb.useGravity = true;
                 break;

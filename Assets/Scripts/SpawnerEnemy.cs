@@ -42,7 +42,6 @@ public class SpawnerEnemy : MonoBehaviour
     {
         var objcetsPerSpawn = Random.Range(1, _spawnPositionX.Length + 1);
 
-
         if (objcetsPerSpawn == 1)
         {
             var trackForInstans = Random.Range(0, _spawnPositionX.Length - 1);
