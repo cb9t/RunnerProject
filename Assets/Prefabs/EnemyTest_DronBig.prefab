@@ -472,12 +472,12 @@ GameObject:
   - component: {fileID: 6317542861922560763}
   - component: {fileID: 4415963315974130132}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: HP Debug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8304603331738810452
 RectTransform:
   m_ObjectHideFlags: 0
