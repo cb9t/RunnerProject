@@ -14,13 +14,11 @@ public class ReloadAction : ActionBase
             {
                var target = collision.gameObject.GetComponent<WeaponsController>();
                if (_rockets) target.ReloadRockets();
-               if (_bombs) target.ReloadBombs();
             }
             else if (data is Collider collider)
             {
                 var target = collider.gameObject.GetComponent<WeaponsController>();
                 if (_rockets) target.ReloadRockets();
-                if (_bombs) target.ReloadBombs();
             }
         }
     }

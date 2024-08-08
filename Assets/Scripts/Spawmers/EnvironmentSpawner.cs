@@ -9,12 +9,14 @@ public class EnvironmentSpawner : MonoBehaviour
     [SerializeField] private GameObject[] _prefabOnRoad;
     [SerializeField] private GameObject[] _prefabNearRoad;
     [SerializeField] private GameObject[] _prefabOnSides;
+    [SerializeField] private GameObject[] _prefabMounts;
 
     [Space]
     [Header("Positions for spawn")]
     [SerializeField] private Vector2 _positionOnRoad;
     [SerializeField] private Vector2 _positionNearRoad;
     [SerializeField] private Vector2 _positionOnSides;
+    [SerializeField] private float _positionMounts;
 
     [SerializeField] private float _positionZ;
     [SerializeField] private float _sizeChunk;
@@ -46,10 +48,11 @@ public class EnvironmentSpawner : MonoBehaviour
     }
     private void GenerateChunk(Vector3 spawnPosition)
     {
-        var chunk = Instantiate(_prefabChunk, spawnPosition, Quaternion.identity);
-       GenerateOnRoad(chunk);
-       GenerateNearRoad(chunk);
-       GenerateOnSides(chunk);
+        var chunk = Instantiate(_prefabChunk, spawnPosition, Quaternion.identity, gameObject.transform);
+        GenerateOnRoad(chunk);
+        GenerateNearRoad(chunk);
+        GenerateOnSides(chunk);
+        GenerateMounts(chunk);
         _lastChunk = chunk.transform;
     }
     private void GenerateOnRoad(GameObject chunk)
@@ -99,7 +102,20 @@ public class EnvironmentSpawner : MonoBehaviour
             }
         }
     }
-
+    private void GenerateMounts(GameObject chunk)
+    {
+        for (int n = -1; n <= 1; n += 2)
+        {
+            var countObjectsPerSpawn = Random.Range(0f, 2f);
+            for (int i = 1; i <= countObjectsPerSpawn; i++)
+            {
+                var objectForSpawn = _prefabMounts[Random.Range(0, _prefabMounts.Length)];
+                var positionForSpawn = new Vector3(_positionMounts * n, 0f, chunk.transform.position.z);
+                var rotationForSpawn = Quaternion.Euler(0f, (Random.Range(0f, 360f)), 0f);
+                Instantiate(objectForSpawn, positionForSpawn, rotationForSpawn, chunk.transform);
+            }
+        }
+    }
 
 
 }

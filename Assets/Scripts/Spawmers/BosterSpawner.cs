@@ -30,7 +30,7 @@ public class BosterSpawner : MonoBehaviour
         var trackForInstans = Random.Range(0, _spawnPositionX.Length);
         var positionForInstans = new Vector3(_spawnPositionX[trackForInstans], _spawnPositionY, _spawnPositionZ);
         var objectForInstans = _prefab[Random.Range(0, _prefab.Length)];
-        Instantiate(objectForInstans, positionForInstans, Quaternion.identity);
+        Instantiate(objectForInstans, positionForInstans, Quaternion.identity, gameObject.transform);
     }
 
 }

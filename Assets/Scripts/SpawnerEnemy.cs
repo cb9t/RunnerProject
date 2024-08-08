@@ -47,7 +47,7 @@ public class SpawnerEnemy : MonoBehaviour
             var trackForInstans = Random.Range(0, _spawnPositionX.Length - 1);
             var positionForInstans = new Vector3(_spawnPositionX[trackForInstans], _spawnPositionY, _spawnPointZ);
             var enemyForInstans = _prefab[Random.Range(0, _prefab.Length)];
-            var instans = Instantiate(enemyForInstans, positionForInstans, Quaternion.identity);
+            var instans = Instantiate(enemyForInstans, positionForInstans, Quaternion.identity, gameObject.transform);
             _lastObject = instans.gameObject;
         }
         if (objcetsPerSpawn == 2)
@@ -61,7 +61,7 @@ public class SpawnerEnemy : MonoBehaviour
                     var positionZ = Random.Range(_spawnPointZ - _positionZRandomRange, _spawnPointZ + _positionZRandomRange);
                     var positionForInstans = new Vector3(_spawnPositionX[i], _spawnPositionY, positionZ);
                     var enemyForInstans = _prefab[Random.Range(0, _prefab.Length)];
-                    var instans = Instantiate(enemyForInstans, positionForInstans, Quaternion.identity);
+                    var instans = Instantiate(enemyForInstans, positionForInstans, Quaternion.identity, gameObject.transform);
                     _lastObject = instans.gameObject;
                 }
             }
@@ -73,7 +73,7 @@ public class SpawnerEnemy : MonoBehaviour
                 var positionZ = Random.Range(_spawnPointZ - _positionZRandomRange, _spawnPointZ + _positionZRandomRange);
                 var positionForInstans = new Vector3(_spawnPositionX[i], _spawnPositionY, positionZ);
                 var enemyForInstans = _prefab[Random.Range(0, _prefab.Length)];
-                var instans = Instantiate(enemyForInstans, positionForInstans, Quaternion.identity);
+                var instans = Instantiate(enemyForInstans, positionForInstans, Quaternion.identity, gameObject.transform);
                 _lastObject = instans.gameObject;
             }
         }

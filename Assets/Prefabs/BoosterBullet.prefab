@@ -512,7 +512,6 @@ GameObject:
   - component: {fileID: 48919083152424189}
   - component: {fileID: 6122521763714314540}
   - component: {fileID: 6135804239852382816}
-  - component: {fileID: 6427066977724499200}
   - component: {fileID: -6759582151558985906}
   - component: {fileID: 4048621802514516011}
   - component: {fileID: 4290878230042350271}
@@ -592,25 +591,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 5, y: 5, z: 5}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6427066977724499200
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6107558076258056905}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1bd82418aae9a744a97e994a4b11b4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _rb: {fileID: 6122521763714314540}
-  _collider: {fileID: 6135804239852382816}
-  _speed: 0
-  _lerpValue: 0
-  _weaponType: 1
-  _maxDistance: 0
-  _defaultPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &-6759582151558985906
 MonoBehaviour:
   m_ObjectHideFlags: 0

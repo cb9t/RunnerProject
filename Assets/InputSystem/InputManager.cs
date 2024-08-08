@@ -16,12 +16,12 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 using UnityEngine;
 
-namespace CustomInput
+namespace Custom.Input
 {
-    public partial class @InputManager: IInputActionCollection2, IDisposable
+    public partial class @InputPlayer: IInputActionCollection2, IDisposable
     {
         public InputActionAsset asset { get; }
-        public @InputManager()
+        public @InputPlayer()
         {
             asset = InputActionAsset.FromJson(@"{
     ""name"": ""InputManager"",
@@ -169,9 +169,9 @@ namespace CustomInput
             m_Player_MoveRight = m_Player.FindAction("MoveRight", throwIfNotFound: true);
         }
 
-        ~@InputManager()
+        ~@InputPlayer()
         {
-            Debug.Assert(!m_Player.enabled, "This will cause a leak and performance issues, InputManager.Player.Disable() has not been called.");
+            Debug.Assert(!m_Player.enabled, "This will cause a leak and performance issues, InputPlayer.Player.Disable() has not been called.");
         }
 
         public void Dispose()
@@ -240,8 +240,8 @@ namespace CustomInput
         private readonly InputAction m_Player_MoveRight;
         public struct PlayerActions
         {
-            private @InputManager m_Wrapper;
-            public PlayerActions(@InputManager wrapper) { m_Wrapper = wrapper; }
+            private @InputPlayer m_Wrapper;
+            public PlayerActions(@InputPlayer wrapper) { m_Wrapper = wrapper; }
             public InputAction @AttackBullet => m_Wrapper.m_Player_AttackBullet;
             public InputAction @AttackRocket => m_Wrapper.m_Player_AttackRocket;
             public InputAction @AttackBomb => m_Wrapper.m_Player_AttackBomb;

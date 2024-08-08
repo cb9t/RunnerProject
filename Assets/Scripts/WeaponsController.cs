@@ -21,19 +21,13 @@ public class WeaponsController : MonoBehaviour
     [Space]
     [Header("Rokets/Bombs")]
     [SerializeField] private Transform _attachedTo;
-
     [SerializeField] private WeaponsLogic _rocketPrefab;
-
     [SerializeField] private WeaponsLogic[] _rockets;
-    [SerializeField] private WeaponsLogic[] _bombs;
-
     [SerializeField] private Transform[] _rocketsPosition;
-    [SerializeField] private Transform[] _bombsPosition;
 
     private int _currentRocket;
-    private int _currentBombs;
-
-    void Start()
+    private Coroutine _attackCoroutine;
+    private void Start()
     {
         _rockets = new WeaponsLogic[_rocketsPosition.Length];
 
@@ -46,11 +40,8 @@ public class WeaponsController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            ReloadBombs();
-            ReloadRockets();
-        }
+        //Only for tests
+        if (Input.GetKeyDown(KeyCode.R)) ReloadRockets();
     }
     public void AttackRocket()
     {
@@ -61,15 +52,6 @@ public class WeaponsController : MonoBehaviour
             _currentRocket++;
         }
     }
-    public void AttackBomb()
-    {
-        if (_currentBombs<_bombs.Length)
-        {
-            _bombs[_currentBombs].Detach();
-            _bombs[_currentBombs].Attack();
-            _currentBombs++;
-        }
-    }
     public void ReloadRockets()
     {
         for (int i = 0; i < _rockets.Length; i++)
@@ -77,14 +59,6 @@ public class WeaponsController : MonoBehaviour
             _rockets[i].Attach(_attachedTo, _rocketsPosition[i]);
         }
         _currentRocket = 0;
-    }
-    public void ReloadBombs()
-    {
-        for (int i = 0; i < _bombs.Length; i++)
-        {
-            _bombs[i].Attach(_attachedTo, _bombsPosition[i]);
-        }
-        _currentBombs = 0;
     }
     public void AttackBulletStart()
     {

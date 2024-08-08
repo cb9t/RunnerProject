@@ -2,8 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using CustomInput;
-using static CustomInput.InputManager;
+using Custom.Input;
+using static Custom.Input.InputPlayer;
 using UnityEngine.InputSystem;
 
 public class PlayerContoller : MonoBehaviour
@@ -17,28 +17,27 @@ public class PlayerContoller : MonoBehaviour
     [SerializeField] private float _rangePositionX;
     
     private int _currentTrack;
-    private InputManager _inputManager;
+    private InputPlayer _inputPlayer;
 
     void Awake()
     {
-        _inputManager = new InputManager();
+        _inputPlayer = new InputPlayer();
 
-        _inputManager.Player.MoveLeft.performed += MoveLeft;
-        _inputManager.Player.MoveRight.performed += MoveRight;
-        _inputManager.Player.AttackBullet.started += AttackBulletStart;
-        _inputManager.Player.AttackBullet.canceled += AttackBulletEnd;
-        _inputManager.Player.AttackRocket.performed += AttackRocket;
-        _inputManager.Player.AttackBomb.performed += AttackBomb;
+        _inputPlayer.Player.MoveLeft.performed += MoveLeft;
+        _inputPlayer.Player.MoveRight.performed += MoveRight;
+        _inputPlayer.Player.AttackBullet.started += AttackBulletStart;
+        _inputPlayer.Player.AttackBullet.canceled += AttackBulletEnd;
+        _inputPlayer.Player.AttackRocket.performed += AttackRocket;
 
         _currentTrack = 1;
     }
     private void OnEnable()
     {
-        _inputManager.Enable();
+        _inputPlayer.Enable();
     }
     private void OnDisable()
     {
-        _inputManager.Disable();
+        _inputPlayer.Disable();
     }
 
     void Update()
@@ -76,10 +75,6 @@ public class PlayerContoller : MonoBehaviour
     public void AttackRocket(InputAction.CallbackContext context)
     {
         _weapons.AttackRocket();
-    }
-    public void AttackBomb(InputAction.CallbackContext context)
-    {
-        _weapons.AttackBomb();
     }
     public void AttackBulletStart(InputAction.CallbackContext context)
     {
